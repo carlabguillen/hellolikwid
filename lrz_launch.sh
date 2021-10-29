@@ -1,6 +1,5 @@
 #!/bin/bash -l
 #
-## allocate 1 nodes with 20 physical cores, without hyperthreading
 
 #SBATCH --job-name=hello
 #SBATCH -o ./%x.%j.out
