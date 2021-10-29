@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <likwid.h>
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 #define HOSTNAME_MAXSIZE        (30)
 
@@ -25,7 +28,17 @@ int main (int argc, char **argv, char **envp){
         MPI_Comm_size (MPI_COMM_WORLD, &size);  /* get number of processes */
         gethostname(hn, HOSTNAME_MAXSIZE);
         fprintf( stdout, "[%s] Hello world from process %d of %d\n", hn, rank, size );
-  
+#ifdef _OPENMP
+#pragma omp parallel
+{
+        int omp_size = omp_get_num_threads();
+        if (omp_size > 1)
+        {
+            int omp_thread = omp_get_thread_num();
+            fprintf( stdout, "[%s] Hello world from thread %d of %d belonging to rank %d\n", hn, omp_thread, omp_size, rank );
+        }
+}
+#endif
         LIKWID_MARKER_REGISTER("matmult");
         LIKWID_MARKER_REGISTER("printdone");
 
