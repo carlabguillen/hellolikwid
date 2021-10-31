@@ -1,11 +1,9 @@
 #!/bin/bash -l
 #
-## allocate 1 nodes with 20 physical cores, without hyperthreading
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=10
 ##SBATCH --ntasks=10
 #
-## allocate nodes for 6 hours
 #SBATCH --time=00:20:00
 # job name 
 #SBATCH --job-name=helloword
