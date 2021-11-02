@@ -28,4 +28,4 @@ likwid-mpirun -np 10 -g CLOCK -m  ./hellompi.exe
 
 ## OpenMP:
 #export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-#likwid-mpirun -np 1 -omp intel -t $SLURM_CPUS_PER_TASK -g CLOCK -m  ./helloomp.exe
+#likwid-mpirun -np 1 -t $SLURM_CPUS_PER_TASK -g CLOCK -m  ./helloomp.exe
