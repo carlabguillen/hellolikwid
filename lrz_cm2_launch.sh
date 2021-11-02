@@ -22,5 +22,5 @@ module list
 unset LIKWID_FORCE 
 #export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 # run 
-#likwid-mpirun -np 1 -g CLOCK -m  ./hello.exe
+#likwid-mpirun -np 1 -omp intel -g CLOCK -m  ./hello.exe
 likwid-mpirun -np 10 -g CLOCK -m  ./hello.exe
