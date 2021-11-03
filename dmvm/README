@@ -23,3 +23,8 @@ Instrument the code with the MarkerAPI and measure it to find reasons for
 performance limitations.
 
 Check README.likwid for further information about the MarkerAPI
+
+################################################################################
+# If you want to use an interactive job, use the thread_scaling_*.sh scripts   #
+################################################################################
+They do not work on the frontend nodes.
