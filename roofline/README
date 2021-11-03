@@ -1,0 +1,35 @@
+################################################################################
+#     Hands-on for generating the Roofline model by hand                       #
+################################################################################
+1.) Determine the maximal FLOP rate for the current system using likwid-bench
+    The test should be executed on all HW threads with a size
+    ((L1_SIZE/2) * NUM_THREADS)
+2.) Determine the maximal memory bandwidth for the current system
+    The test should be executed on all phyiscal HW threads with a size 4GB and
+    thread-local initialization
+    SMT off:
+    $ likwid-bench -t copy_avx -W N:4GB:<num_threads>
+    SMT on:
+    $ likwid-bench -t copy_avx -W N:4GB:<num_threads>:1:2
+3.) Measure dmvm code for the arithmentic intensity and FLOP rate with likwid-perfctr
+    (MEM_DP, Use values in statstics table in SUM column).
+    If you see problems with extremely high values for memory metrics, use only a single socket
+4.) Use different example code and measure AI and FLOP rate. Use MarkerAPI if
+    possible. You can use 'testapp', it has MarkerAPI included.
+    If you see problems with extremely high values for memory metrics, use only a single socket
+
+
+
+################################################################################
+#     Infos about likwid-bench                                                 #
+################################################################################
+- All tests:
+likwid-bench -a
+- Measure maximal FLOP rate with tests: peakflops_* (yes, there is only AVX but no AVX FMA)
+- Measure maximal memory bandwidth with test comparable to own code:
+  load_*, store_*, update_*, copy_*, triad_*, stream_*
+
+- Thread-local initialization (-W):
+  When using -W instead of -w, each thread in the group initializes the own chunk of memory to
+  maximize local access. If -w is used, the first thread in the group initializes the whole memory
+  which could lead to NUMA problems
