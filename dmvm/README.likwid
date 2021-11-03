@@ -1,0 +1,43 @@
+################################################################################
+#                      Reminder of LIKWID MarkerAPI                            #
+################################################################################
+
+Include likwid-marker.h to all files using the MarkerAPI
+
+- LIKWID_MARKER_INIT
+- LIKWID_MARKER_CLOSE
+    Initialize the library and close it in the end. These calls must be executed
+    by only a single thread like beginning and end of the main function.
+- LIKWID_MARKER_REGISTER("regionTag")
+    Register the region 'regionTag' in the library. This call needs to be
+    performed by each thread running the region afterwards. Best is to use a
+    separate parallel region for it (to make use of the implicit OpenMP barrier)
+- LIKWID_MARKER_START("regionTag")
+- LIKWID_MARKER_STOP("regionTag")
+    Start and stop a region. These calls need to be performed by each thread.
+
+
+The MarkerAPI can be added to Fortran90 code as well:
+https://github.com/RRZE-HPC/likwid/wiki/TutorialMarkerF90
+
+
+################################################################################
+#                      Compilation with LIKWID MarkerAPI                       #
+################################################################################
+
+The Makefile already tries to build the LIKWID instrumented code but if you want
+to do it manually:
+- Add -DLIKWID_PERFMON to the command line to activate the macros
+- Add $LIKWID_LIB to the command line (defined by likwid module at LRZ)
+- Add $LIKWID_INC to the command line (defined by likwid module at LRZ)
+- Add -llikwid at the end of the command line (commonly after -o <executable>)
+
+################################################################################
+#                        Running with LIKWID MarkerAPI                         #
+################################################################################
+
+likwid-perfctr -C <cpuselection> -g <EVENTS> -m <executable>
+
+The -m activates the MarkerAPI mode of likwid-perfctr. If you don't set it, the
+measurement includes the whole execution of the executable and not just the
+instrumented region.

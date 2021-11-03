@@ -1,0 +1,25 @@
+################################################################################
+#     Example code for multiplication of triangular matrix                     #
+################################################################################
+
+This code is an example for matrix vector multiplication with a triangular
+matrix. It can be used to test optimizations.
+
+The code is parallelized with OpenMP but can be built without threads as well.
+The multiplication loop is from line 116 - 126 and is executed several times
+(ROUNDS). The size of the matrix and vectors can be specified at compile time
+using -DN=<elements_in_a_row/column). It always allocates a quadratic matrix
+to simplify the management. The ROUNDS can also be specified at compile time
+using -DROUNDS=<rounds>. Both options are used as defaults, but N and ROUNDS
+can also be specified at runtime:
+
+$ ./matrix <rounds> <dimsize>
+
+################################################################################
+#           What should be done in the Hands-On session                        #
+################################################################################
+
+Instrument the code with the MarkerAPI and measure it to find reasons for
+performance limitations.
+
+Check README.likwid for further information about the MarkerAPI
