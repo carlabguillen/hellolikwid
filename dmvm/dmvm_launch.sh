@@ -22,6 +22,7 @@ module load likwid/5.2.0-gcc8
 module list
 
 unset LIKWID_FORCE
+unset OMP_NUM_THREADS
 
 LIKWID_MARKERS=
 
